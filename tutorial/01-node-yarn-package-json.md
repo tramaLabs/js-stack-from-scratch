@@ -1,39 +1,39 @@
-# 01 - Node, Yarn, and `package.json`
+# 01 - Node, Yarn, e `package.json`
 
-Code for this chapter available [here](https://github.com/verekia/js-stack-walkthrough/tree/master/01-node-yarn-package-json).
+O código desse capítulo está disponível [aqui](https://github.com/verekia/js-stack-walkthrough/tree/master/01-node-yarn-package-json).
 
-In this section we will set up Node, Yarn, a basic `package.json` file, and try a package.
+Nessa sessão nós iremos configurar Node, Yarn, um arquivo `package.json` inicial, e testar um pacote.
 
 ## Node
 
-> 💡 **[Node.js](https://nodejs.org/)** is a JavaScript runtime environment. It is mostly used for Back-End development, but also for general scripting. In the context of Front-End development, it can be used to perform a whole bunch of tasks like linting, testing, and assembling files.
+> 💡 **[Node.js](https://nodejs.org/)** é um ambiente em tempo de execução em JavaScript. É usado majoritariamente para desenvolvimento back-end, mas também é muito utilizado para criação de scripts em geral. No contexto do deenvolvimento front-end, pode ser utilizado para executar uma grande sequência de tarefas, como lint, testes e unificação de arquivos assembly.
 
-We will use Node for basically everything in this tutorial, so you're going to need it. Head to the [download page](https://nodejs.org/en/download/current/) for **macOS** or **Windows** binaries, or the [package manager installations page](https://nodejs.org/en/download/package-manager/) for Linux distributions.
+Iremos utilizar Node para basicamente tudo nesse tutorial, então você com certeza precisará dele. Acesse a [página de download](https://nodejs.org/en/download/current/) para versões binárias de **macOS** ou **Windows**, ou a [página para instalação via package manager](https://nodejs.org/en/download/package-manager/) para distribuições Linux.
 
-For instance, on **Ubuntu / Debian**, you would run the following commands to install Node:
+Como exemplo, no **Ubuntu / Debian**, você precisa executar os seguintes comandos para instalar o Node:
 
 ```sh
 curl -sL https://deb.nodesource.com/setup_7.x | sudo -E bash -
 sudo apt-get install -y nodejs
 ```
 
-You want any version of Node > 6.5.0.
+Você irá precisar de qualquer versão > 6.5.0.
 
 ## NVM
 
-If Node is already installed, or if you want more flexibility, install NVM ([Node Version Manager](https://github.com/creationix/nvm)), and make NVM install and use the latest version of Node for you.
+Se o Node já estiver instalado, ou se você quer mais flexibilidade, instale NVM ([Node Version Manager](https://github.com/creationix/nvm)), rode NVM install e use a última versão disponível do Node para você.
 
 ## NPM
 
-NPM is the default package manager for Node. It is automatically installed alongside with Node. Package managers are used to install and manage packages (modules of code that you or someone else wrote). We are going to use a lot of packages in this tutorial, but we'll use Yarn, another package manager.
+NPM é o gereciador de pacotes padrão do Node. Ele é instalado automaticamente durante a instalação do Node. Gerenciadores de pacotes são usados para instalar e gerenciar pacotes (módulos de código que você ou outro alguém escreveu). Nós iremos usar vários pacotes nesse tutorial, mas iremos aprender a usar o Yarn, outro gerenciador de pacotes.
 
 ## Yarn
 
-> 💡 **[Yarn](https://yarnpkg.com/)** is a Node.js package manager which is much faster than NPM, has offline support, and fetches dependencies [more predictably](https://yarnpkg.com/en/docs/yarn-lock).
+> 💡 **[Yarn](https://yarnpkg.com/)** é um gerenciador de pacotes de Node.JS que é muito mais rápido que o NPM, tem suporte offline e busca por dependências [mais assertivamente](https://yarnpkg.com/en/docs/yarn-lock).
 
-Since it [came out](https://code.facebook.com/posts/1840075619545360) in October 2016, it received a very quick adoption and may soon become the package manager of choice of the JavaScript community. If you want to stick to NPM you can simply replace all `yarn add` and `yarn add --dev` commands of this tutorial by `npm install --save` and `npm install --save-dev`.
+Desde que [foi publicado](https://code.facebook.com/posts/1840075619545360) em outubro de 2016, ele recebeu uma adoção muito rápida e talvez logo se torne o gerenciador de pacote padrão da comunidade JavaScript. Se você quiser continuar usando o NPM simplesmente substitua todos os comandos `yarn add` e `yarn add --dev` desse tutorial por `npm install --save` e `npm install --save-dev`.
 
-Install Yarn by following the [instructions](https://yarnpkg.com/en/docs/install) for your OS. I would recommend using the **Installation Script** from the *Alternatives* tab if you are on macOS or Unix, to [avoid](https://github.com/yarnpkg/yarn/issues/1505) relying on other package managers:
+Instale Yarn seguindo as [instruções](https://yarnpkg.com/en/docs/install) para o seu sistema operacional. Eu recomendo utilizar o **script de instalação** da aba *Alternatives* se você estiver no macOS ou no Linux, para [evitar](https://github.com/yarnpkg/yarn/issues/1505) depender de outros gerenciadores de pacotes:
 
 ```sh
 curl -o- -L https://yarnpkg.com/install.sh | bash
@@ -41,12 +41,12 @@ curl -o- -L https://yarnpkg.com/install.sh | bash
 
 ## `package.json`
 
-> 💡 **[package.json](https://yarnpkg.com/en/docs/package-json)** is the file used to describe and configure your JavaScript project. It contains general information (your project name, version, contributors, license, etc), configuration options for tools you use, and even a section to run *tasks*.
+> 💡 **[package.json](https://yarnpkg.com/en/docs/package-json)** é o arquivo usado para descrever e configura seu projeto JavaScript. Ele contem informações gerais (o nome do seu projeto, versão, contribuidores, licença, etc), opções de configuração para as ferramentas que você está usando, e até uma sessão para executar *tarefas*.
 
-- Create a new folder to work in, and `cd` in it.
-- Run `yarn init` and answer the questions (`yarn init -y` to skip all questions), to generate a `package.json` file automatically.
+- Crie uma nova pasta para trabalhar, e entre `cd` nela.
+- Execute `yarn init` e responda as questões (`yarn init -y` para pular todas as questões), para gerar um arquivo `package.json` automaticamente.
 
-Here is the basic `package.json` I'll use in this tutorial:
+Aqui está um arquivo básico `package.json` que eu usarei nesse tutorial:
 
 ```json
 {
@@ -58,17 +58,17 @@ Here is the basic `package.json` I'll use in this tutorial:
 
 ## Hello World
 
-- Create an `index.js` file containing `console.log('Hello world')`
+- Crie um arquivo `index.js` contendo `console.log('Hello world')`
 
-🏁 Run `node .` in this folder (`index.js` is the default file Node looks for in a folder). It should print "Hello world".
+🏁 Execute `node .` nessa pasta (`index.js` é o arquivo que o NodeJS busca na sua pasta por padrão). Deve ser impresso "Hello world".
 
-**Note**: See that 🏁 racing flag emoji? I will use it every time you reach a **checkpoint**. We are sometimes going to make a lot of changes in a row, and your code may not work until you reach the next checkpoint.
+**Nota**: Está vendo esse emoji de bandeirinha de corrida 🏁? Eu vou usar toda vez que você chegar em um **checkpoint**. Nós iremos algumas vezes fazer uma série de mudanças em sequência, e seu código pode não funcionar até você chegar ao checkout seguinte.
 
-## `start` script
+## O script `start`
 
-Running `node .` to execute our program is a bit too low-level. We are going to use an NPM/Yarn script to trigger the execution of that code instead. That will give us a nice abstraction to be able to always use `yarn start`, even when our program gets more complicated.
+Executar `node .` para rodar nosso programa é um pouco baixo-nível. Em vez disso, nós vamos usar um script do NPM/Yarn para disparar a execução desse código. Isso nos dará uma boa abstração para que sempre possamos utilizar `yarn start`, mesmo quando nosso programa ficar mais complicado.
 
-- In `package.json`, add a `scripts` object like so:
+- No `package.json`, adicione um objeto `scripts` como segue:
 
 ```json
 {
@@ -81,42 +81,42 @@ Running `node .` to execute our program is a bit too low-level. We are going to 
 }
 ```
 
-`start` is the name we give to the *task* that will run our program. We are going to create a lot of different tasks in this `scripts` object throughout this tutorial. `start` is typically the name given to the default task of an application. Some other standard task names are `stop` and `test`.
+`start` é o nome que damos à *tarefa* que rodará nosso programa. Nós iremos criar uma quantidade de diferentes tarefas nesse objeto `scripts` durante o tutorial. Outros nomes de tarefa padrão são `stop` e `test`.
 
-`package.json` must be a valid JSON file, which means that you cannot have trailing commas. So be careful when editing manually your `package.json` file.
+`package.json` precisa ser um arquivo JSON válido, o que significa que não pode conter vírgulas sobrando (trailing commas). Então seja cuidadoso quando editar seu `package.json` manualmente.
 
-🏁 Run `yarn start`. It should print `Hello world`.
+🏁 Rode `yarn start`. Isso deve imprimir `Hello world`.
 
-## Git and `.gitignore`
+## Git e `.gitignore`
 
-- Initialize a Git repository with `git init`
+- Inicialize um repositório git com `git init`
 
-- Create a `.gitignore` file and add the following to it:
+- Crie um arquivo `.gitignore` e adicione o seguinte conteúdo nele:
 
 ```gitignore
 .DS_Store
 /*.log
 ```
 
-`.DS_Store` files are auto-generated macOS files that you should never have in your repository.
+Arquivos `.DS_Store` são gerados automaticamente pelo macOS e você não deve querer tê-los em seu repositório.
 
-`npm-debug.log` and `yarn-error.log` are files that are created when your package manager encounters an error, we don't want them versioned in our repository.
+`npm-debug.log` e `yarn-error.log` são arquivos que são criados sempre que nosso gerenciador de pacotes encontra um error. Nós não queremos eles versionados em nosso repositório.
 
-## Installing and using a package
+## Instalando e usando um pacote
 
-In this section we will install and use a package. A "package" is simply a piece of code that someone else wrote, and that you can use in your own code. It can be anything. Here, we're going to try a package that helps you manipulate colors for instance.
+Nessa sessão nós iremos instalar e usar um pacote. Um "pacote" é uma simples peça de código que alguém escreveu, e que você pode usar em seu próprio código. Ele pode ser qualquer coisa. Aqui, nós iremos adicionar um pacote que ajuda a manipular cores.
 
-- Install the community-made package called `color` by running `yarn add color`
+- Instale o pacote criado pela comunidade chamado `color` executando  `yarn add color`
 
-Open `package.json` to see how Yarn automatically added `color` in  `dependencies`.
+Abra o arquivo `package.json` para ver como o Yarn automaticamente adicionou `color` em `dependencies`.
 
-A `node_modules` folder has been created to store the package.
+Uma pasta `node_modules` foi criada para salvar seu pacote.
 
-- Add `node_modules/` to your `.gitignore`
+- Adicione `node_modules/` em seu arquivo `.gitignore`
 
-You will also notice that a `yarn.lock` file got generated by Yarn. You should commit this file to your repository, as it will ensure that everyone in your team uses the same version of your packages. If you're sticking to NPM instead of Yarn, the equivalent of this file is the *shrinkwrap*.
+Você também notará que um arquivo `yarn.lock` foi gerado pelo Yarn. Você deve commitar esse arquivo no seu repositório, já que ele garante que todos no seu time usem a memsa versão dos seus pacotes. Se você estiver usando NPM em vez de Yarn, o equivalente a esse arquivo é o *shrinkwrap*.
 
-- Write the following to your `index.js` file:
+- Escreva o seguinte código no seu arquivo `index.js`:
 
 ```js
 const color = require('color')
@@ -126,22 +126,22 @@ const redHexa = color({ r: 255, g: 0, b: 0 }).hex()
 console.log(redHexa)
 ```
 
-🏁 Run `yarn start`. It should print `#FF0000`.
+🏁 Execute `yarn start`. Isso deve imprimir `#FF0000`.
 
-Congratulations, you installed and used a package!
+Parabéns, você instalou e usou um pacote!
 
-`color` is just used in this section to teach you how to use a simple package. We won't need it anymore, so you can uninstall it:
+`color` somente foi usado nessa sessão para lhe ensinar como usar um pacote simples. Nós não precisaremos dele mais, então você pode desinstalá-lo:
 
-- Run `yarn remove color`
+- Execute `yarn remove color`
 
-## Two kinds of dependencies
+## Dois tipos de dependências
 
-There are two kinds of package dependencies, `"dependencies"` and `"devDependencies"`:
+Há dois tipos de dependências de pacotes, `"dependencies"` e `"devDependencies"`:
 
-**Dependencies** are libraries you need for your application to function (React, Redux, Lodash, jQuery, etc). You install them with `yarn add [package]`.
+**Dependencies** são bibliotecas que você precisa usar para que sua aplicação execute (React, Redux, Lodash, jQuery, etc). Você instala elas com `yarn add [package]`.
 
-**Dev Dependencies** are libraries used during development or to build your application (Webpack, SASS, linters, testing frameworks, etc). You install those with `yarn add --dev [package]`.
+**Dev Dependencies** são bibliotecas usadas durante o desenvolvimento ou para compilar sua aplicação (Webpack, SASS, linters, testing frameworks, etc). Você instala elas com `yarn add --dev [package]`.
 
-Next section: [02 - Babel, ES6, ESLint, Flow, Jest, Husky](02-babel-es6-eslint-flow-jest-husky.md#readme)
+Próxima sessão: [02 - Babel, ES6, ESLint, Flow, Jest, Husky](02-babel-es6-eslint-flow-jest-husky.md#readme)
 
-Back to the [table of contents](https://github.com/verekia/js-stack-from-scratch#table-of-contents).
+De volta ao [índice](https://github.com/verekia/js-stack-from-scratch#table-of-contents).
