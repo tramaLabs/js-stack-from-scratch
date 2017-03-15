@@ -85,7 +85,7 @@ O arquivo é usado para descrever como nosso pacote deve ser empacotado: `entry`
 `babel-loader` é uma extensão para o Webpack, que transpila o seu código assim como estamos fazendo desde o início desse tutorial. A unica diferença é que dessa vez, o código irá rodar no navegador invés do servidor.
 
 - Execute `yarn add --dev webpack webpack-dev-server babel-core babel-loader`.
-- 
+
 `babel-core` é uma dependência intrinseca de `babel-loader`, então nós o instalamos também.
 
 - Adcione `/dist/` ao seu `.gitignore`.
