@@ -27,7 +27,7 @@ import { APP_CONTAINER_SELECTOR } from '../shared/config'
 document.querySelector(APP_CONTAINER_SELECTOR).innerHTML = '<h1>Hello Webpack!</h1>'
 ```
 
-Se você quiser as maiores novidades do ES no seu cliente, como `Promise`, você vai precisar incluir o [Babel Polyfill](https://babeljs.io/docs/usage/polyfill/) antes de qualquer coisa do seu pacote.
+Se você quiser algumas das maiores novidades do ES no seu cliente, como `Promise`, você vai precisar incluir o [Babel Polyfill](https://babeljs.io/docs/usage/polyfill/) antes de qualquer coisa do seu pacote.
 
 - Execute `yarn add babel-polyfill`
 
@@ -59,9 +59,9 @@ export default {
     './src/client',
   ],
   output: {
-    filename: 'bundle.js',
-    path: path.resolve(__dirname, 'dist/js'),
-    publicPath: `http://localhost:${WDS_PORT}/dist/js/`,
+    filename: 'js/bundle.js',
+    path: path.resolve(__dirname, 'dist'),
+    publicPath: isProd ? '/static/' : `http://localhost:${WDS_PORT}/dist/`,
   },
   module: {
     rules: [
@@ -78,7 +78,7 @@ export default {
 }
 ```
 
-O arquivo é usado para descrever como nosso pacote deve ser empacotado: `entry` é o ponto de partida da nossa aplicação, `output.filename` é o nome do pacote a ser gerado, `output.path` e `output.publicPath` descrevem a pasta destino e a URL. Nós colocamos o pacote na pasta `dist`, que irá conter os arquivos que são gerados automaticamente (diferentemente do css declarativo que nós criamos anteriormente, que está em `public`). `module.rules` é onde nós dizemos ao Webpack para aplicar um tratamento a alguns tipos de arquivos. Aqui nós dizemos que nós queremos que todos os arquivos `.js` e `.jsx` (para o React), exceto os que estão em `node_modules`, passem por alguma coisa chamado `babel-loader`. Nós também queremos que essas duas extencões em `resolve`. Finalmente, nós declaramos uma porta para o Webpack Dev Server (Servidor de desenvolvimento do Webpack).
+O arquivo é usado para descrever como nosso pacote deve ser empacotado: `entry` é o ponto de partida da nossa aplicação, `output.filename` é o nome do pacote a ser gerado, `output.path` e `output.publicPath` descrevem a pasta destino e a URL. Nós colocamos o pacote na pasta `dist`, que irá conter os arquivos que são gerados automaticamente (diferentemente do css declarativo que nós criamos anteriormente, que está em `public`). `module.rules` é onde nós dizemos ao Webpack para aplicar um tratamento a alguns tipos de arquivos. Aqui nós dizemos que nós queremos que todos os arquivos `.js` e `.jsx` (para o React), exceto os que estão em `node_modules`, passem por alguma coisa chamado `babel-loader`. Nós também queremos que essas duas extensões sejam usadas em `resolve` quando nós usamos `import`. Finalmente, nós declaramos uma porta para o Webpack Dev Server (Servidor de desenvolvimento do Webpack).
 
 **Nota**: A extensão `.babel.js` é uma propriedade do Webpack para aplicar nossas transformações do Babel ao arquivo config
 
@@ -103,7 +103,7 @@ Vamos atualizar nossos `scripts` para implementar tudo isso, e melhorar nossas t
   "dev:wds": "webpack-dev-server --progress",
   "prod:build": "rimraf lib dist && babel src -d lib --ignore .test.js && cross-env NODE_ENV=production webpack -p --progress",
   "prod:start": "cross-env NODE_ENV=production pm2 start lib/server && pm2 logs",
-  "prod:stop": "pm2 delete all",
+  "prod:stop": "pm2 delete server",
   "lint": "eslint src webpack.config.babel.js --ext .js,.jsx",
   "test": "yarn lint && flow && jest --coverage",
   "precommit": "yarn test",
@@ -200,9 +200,9 @@ const App = () => <h1>Hello React!</h1>
 export default App
 ```
 
-Já que nos usamos a sintaxe do JSX, nós precisamos falar para o Babel que ele precisa transformar isso.
+Já que nos usamos a sintaxe do JSX, nós precisamos falar para o Babel que ele precisa transformar isso usando o preset `babel-preset-react`. E já que estamos nele, nós tambem precisaremos adicionar um plugin de Babel chamado `flow-react-proptypes`, que automaticamente gera PropTypes de anotações Flow para seus componentes React.
 
-- Execute `yarn add --dev babel-preset-react` e adcione react no seu arquivo `.babelrc` dessa forma:
+- Execute `yarn add --dev babel-preset-react` e adicione react no seu arquivo `.babelrc` dessa forma:
 
 ```json
 {
@@ -210,6 +210,9 @@ Já que nos usamos a sintaxe do JSX, nós precisamos falar para o Babel que ele 
     "env",
     "flow",
     "react"
+  ],
+  "plugins": [
+    "flow-react-proptypes"
   ]
 }
 ```
