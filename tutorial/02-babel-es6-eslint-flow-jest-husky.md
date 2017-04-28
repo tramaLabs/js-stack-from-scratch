@@ -1,33 +1,35 @@
 # 02 - Babel, ES6, ESLint, Flow, Jest, and Husky
 
-Code for this chapter available [here](https://github.com/verekia/js-stack-walkthrough/tree/master/02-babel-es6-eslint-flow-jest-husky).
+Código para este capítulo disponível [aqui](https://github.com/verekia/js-stack-walkthrough/tree/master/02-babel-es6-eslint-flow-jest-husky).
 
-We're now going to use some ES6 syntax, which is a great improvement over the "old" ES5 syntax. All browsers and JS environments understand ES5 well, but not ES6. That's where a tool called Babel comes to the rescue!
+Agora vamos usar a sintaxe ES6, que é uma grande melhoria em relação à "antiga" sintaxe ES5. Todos os navegadores e ambientes JS entendem bem ES5, mas não ES6. É aí que uma ferramenta chamada Babel vem ao resgate!
 
 ## Babel
 
-> 💡 **[Babel](https://babeljs.io/)** is a compiler that transforms ES6 code (and other things like React's JSX syntax) into ES5 code. It is very modular and can be used in tons of different [environments](https://babeljs.io/docs/setup/). It is by far the preferred ES5 compiler of the React community.
+> 💡 **[Babel](https://babeljs.io/)** e um compilador que transforma o código ES6 (e outras coisas como a JSX do React) em código ES5. 
+É muito modular e pode ser usado em toneladas de diferentes [ambientes](https://babeljs.io/docs/setup/). 
+É de longe o compilador ES5 preferido da comunidade do React.
 
-- Move your `index.js` into a new `src` folder. This is where you will write your ES6 code. Remove the previous `color`-related code in `index.js`, and replace it with a simple:
+- Mova o `index.js` para uma nova pasta` src`. É onde você vai escrever o seu código ES6. Remova o código `color`-relacionado anterior em` index.js`, e substitua-o por um simples:
 
 ```js
 const str = 'ES6'
 console.log(`Hello ${str}`)
 ```
 
-We're using a *template string* here, which is an ES6 feature that lets us inject variables directly inside the string without concatenation using `${}`. Note that template strings are created using **backquotes**.
+Estamos usando *template string* aqui, que é um recurso ES6 que nos permite injetar variáveis diretamente dentro da string sem concatenação usando `$ {}`. Observe que as sequências de modelo são criadas usando **backquotes**.
 
-- Run `yarn add --dev babel-cli` to install the CLI interface for Babel.
+- Execute o `yarn add --dev babel-cli` para instalar a interface CLI para Babel.
 
-Babel CLI comes with [two executables](https://babeljs.io/docs/usage/cli/): `babel`, which compiles ES6 files into new ES5 files, and `babel-node`, which you can use to replace your call to the `node` binary and execute ES6 files directly on the fly. `babel-node` is great for development but it is heavy and not meant for production. In this chapter we are going to use `babel-node` to set up the development environment, and in the next one we'll use `babel` to build ES5 files for production.
+Babel CLI vem com dois  [executáveis](https://babeljs.io/docs/usage/cli/): `babel`, que compila arquivos ES6 em novos arquivos ES5 e `babel-node`, que você pode usar para substituir sua chamada para o `node` binário e executar arquivos ES6 dinamicamente. `babel-node` é ótimo para o desenvolvimento, mas é pesado e não é destinado à produção. Neste capítulo, vamos usar `babel-node` para configurar o ambiente de desenvolvimento, e no próximo usaremos `babel` para construir arquivos ES5 para produção.
 
-- In `package.json`, in your `start` script, replace `node .` by `babel-node src` (`index.js` is the default file Node looks for, which is why we can omit `index.js`).
+- No `package.json`, no seu script `start`, substitua `node .` por `babel-node src` (`index.js` é o arquivo padrão que o Node procura, e é por isso que podemos omitir `index.j`).
 
-If you try to run `yarn start` now, it should print the correct output, but Babel is not actually doing anything. That's because we didn't give it any information about which transformations we want to apply. The only reason it prints the right output is because Node natively understands ES6 without Babel's help. Some browsers or older versions of Node would not be so successful though!
+Se você tentar executar o `yarn start` agora, ele deve imprimir a saída correta, mas o Babel não está fazendo realmente nada. Isso porque não fornecemos nenhuma informação sobre quais transformações queremos aplicar. A única razão pela qual imprime a saída correta é porque o Node compreende nativamente o ES6 sem a ajuda de Babel. Alguns navegadores ou versões mais antigas do Node não seriam tão bem sucedidos!
 
-- Run `yarn add --dev babel-preset-env` to install a Babel preset package called `env`, which contains configurations for the most recent ECMAScript features supported by Babel.
+- Execute o comando `yarn add --dev babel-preset-env` para instalar um pacote Babel predefinido chamado `env`, que contém configurações para os recursos mais recentes do ECMAScript suportados pelo Babel.
 
-- Create a `.babelrc` file at the root of your project, which is a JSON file for your Babel configuration. Write the following to it to make Babel use the `env` preset:
+- Crie um arquivo chamado `.babelrc` na raiz do seu projeto, que é um arquivo JSON para a configuração do Babel. Escreva o seguinte para fazer com que Babel use a predefinição `env`
 
 ```json
 {
@@ -37,7 +39,7 @@ If you try to run `yarn start` now, it should print the correct output, but Babe
 }
 ```
 
-🏁 `yarn start` should still work, but it's actually doing something now. We can't really tell if it is though, since we're using `babel-node` to interpret ES6 code on the fly. You'll soon have a proof that your ES6 code is actually transformed when you reach the [ES6 modules syntax](#the-es6-modules-syntax) section of this chapter.
+🏁 `yarn start` ainda deve funcionar, mas desta vez está realmente fazendo algo. No entanto, nós não podemos realmente afirmar isso, já que nós estamos usando `babel-node` para interpretar ES6 dinamicamente. Em breve você terá uma prova de que o seu código ES6 é realmente transformado quando você alcança a seção [ES6 módulos sintaxe](#the-es6-modules-syntax) neste capítulo.
 
 ## ES6
 
