@@ -1,20 +1,21 @@
 # 03 - Express, Nodemon, and PM2
 
-Code for this chapter available [here](https://github.com/verekia/js-stack-walkthrough/tree/master/03-express-nodemon-pm2).
+Código para este capítulo disponível [here](https://github.com/verekia/js-stack-walkthrough/tree/master/03-express-nodemon-pm2).
 
-In this section we are going to create the server that will render our web app. We will also set up a development mode and a production mode for this server.
+Nessa sessão nós vamos criar o servidor que vai renderizar nossa web app. Nós vamos também configurar modos de desenvolvimento, e produção para rodar o servidor.
 
 ## Express
 
-> 💡 **[Express](http://expressjs.com/)** is by far the most popular web application framework for Node. It provides a very simple and minimal API, and its features can be extended with *middleware*.
+> 💡 **[Express](http://expressjs.com/)** é de longe o wep framework mais popular para Node. Ele provê uma API simples e pequena, e suas funcionalidades podem ser extendidas através de *middlewares*.
 
-Let's set up a minimal Express server to serve an HTML page with some CSS.
+Vamos configurar um pequeno servidor Express para servir nossa página HTML com um pouco de CSS.
 
-- Delete everything inside `src`
+- Delete tudo dentro de `src`
 
-Create the following files and folders:
+Crie os seguintes arquivos e pastas:
 
-- Create a `public/css/style.css` file containing:
+- Crie um arquivo `public/css/style.css` contendo:
+- Crie um arquivo `public/css/style.css` contendo:
 
 ```css
 body {
@@ -28,13 +29,13 @@ h1 {
 }
 ```
 
-- Create an empty `src/client/` folder.
+- Crie a pasta `src/client/`.
 
-- Create an empty `src/shared/` folder.
+- Crie a pasta `src/shared/`.
 
-This folder is where we put *isomorphic / universal* JavaScript code – files that are used by both the client and the server. A great use case of shared code is *routes*, as you will see later in this tutorial when we'll make an asynchronous call. Here we simply have some configuration constants as an example for now.
+Essa pasta é onde nós colocamos código javascript *isomorphic / universal*. Arquivos que são usados tanto pelo client quanto pelo server. Um grande caso de código compartilhado é *routes*, como você irá ver adiante neste tutorial quando nós fizermos uma chamada assíncrona. Por enquanto vamos ter apenas constantes de configurações simples de exemplo.
 
-- Create a `src/shared/config.js` file, containing:
+- Crie um arquivo `src/shared/config.js` , contendo:
 
 ```js
 // @flow
@@ -43,10 +44,9 @@ export const WEB_PORT = process.env.PORT || 8000
 export const STATIC_PATH = '/static'
 export const APP_NAME = 'Hello App'
 ```
+Se o processo Node usado para rodar seu app tem a variável de ambiente `process.env.PORT` disponível (esse é o caso quando você lança seu código no Heroku por exemplo), node usará o valor da variável para a porta da aplicação. Se não houver a variável, vai usar a porta padrão `8080`.
 
-If the Node process used to run your app has a `process.env.PORT` environment variable set (that's the case when you deploy to Heroku for instance), it will use this for the port. If there is none, we default to `8000`.
-
-- Create a `src/shared/util.js` file containing:
+- Crie um arquivo `src/shared/util.js`, contendo:
 
 ```js
 // @flow
@@ -55,13 +55,13 @@ If the Node process used to run your app has a `process.env.PORT` environment va
 export const isProd = process.env.NODE_ENV === 'production'
 ```
 
-That's a simple util to test if we are running in production mode or not. The `// eslint-disable-next-line import/prefer-default-export` comment is because we only have one named export here. You can remove it as you add other exports in this file.
+Esse é uma simples configuração para testar se estamos rodando em modo de produço ou não. O comentário  `// eslint-disable-next-line import/prefer-default-export` é porque nós só temos um nome sendo exportado aqui. Você pode removê-lo assim que adicionar outros exports neste arquivo.
 
-- Run `yarn add express compression`
+- Rode `yarn add express compression`
 
-`compression` is an Express middleware to activate Gzip compression on the server.
+`compression` é um  middleware de Express para ativar compressão Gzip no servidor.
 
-- Create a `src/server/index.js` file containing:
+- Crie o arquivo `src/server/index.js` contendo:
 
 ```js
 // @flow
@@ -88,10 +88,9 @@ app.listen(WEB_PORT, () => {
   console.log(`Server running on port ${WEB_PORT} ${isProd ? '(production)' : '(development)'}.`)
 })
 ```
+Nada de mais por aqui, é praticamente um Hello World de tutorial de Express com alguns imports adicionais. Estamos usando duas pastas de arquivos estáticos aqui. `dist` para arquivos gerados  e `public` para arquivos declarativos.
 
-Nothing fancy here, it's almost Express' Hello World tutorial with a few additional imports. We're using 2 different static file directories here. `dist` for generated files, `public` for declarative ones.
-
-- Create a `src/server/render-app.js` file containing:
+- Crie um arquivo `src/server/render-app.js` contendo:
 
 ```js
 // @flow
